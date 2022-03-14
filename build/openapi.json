@@ -1,0 +1,186 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "LLOYD\u0027s BANK ATM LOCATION API",
+    "description": "A sample atm location api",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://springdoc.org"
+    },
+    "version": "v0.0.1"
+  },
+  "externalDocs": {
+    "description": "ATM Location Api Documentation",
+    "url": "https://developer.lloydsbank.com/opendata-v2.2#head-atms-2.2"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/atm/get-atm": {
+      "get": {
+        "tags": [
+          "atm-controller"
+        ],
+        "operationId": "getAtmLocation",
+        "parameters": [
+          {
+            "name": "atmDTO",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AtmDTO"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientResponseHelperATM"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AtmDTO": {
+        "required": [
+          "identification",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "identification": {
+            "type": "string"
+          }
+        }
+      },
+      "ATM": {
+        "type": "object",
+        "properties": {
+          "Identification": {
+            "type": "string"
+          },
+          "SupportedCurrencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Location": {
+            "$ref": "#/components/schemas/Location"
+          }
+        }
+      },
+      "ClientResponseHelperATM": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ATM"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "PostalAddress": {
+            "$ref": "#/components/schemas/PostalAddress"
+          }
+        }
+      },
+      "PostalAddress": {
+        "type": "object",
+        "properties": {
+          "AddressLine": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "StreetName": {
+            "type": "string"
+          },
+          "TownName": {
+            "type": "string"
+          },
+          "CountrySubDivision": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Country": {
+            "type": "string"
+          },
+          "PostCode": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
