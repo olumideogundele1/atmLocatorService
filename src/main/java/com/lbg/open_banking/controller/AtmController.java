@@ -26,20 +26,21 @@ public class AtmController {
         this.atmService = atmService;
     }
 
-//    @Operation(summary = "Get a ATM by its identification")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Found the ATM Location",
-//                    content = { @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = ATM.class)) }),
-//            @ApiResponse(responseCode = "400", description = "Invalid identification/url supplied",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = ErrorResponse.class))}),
-//            @ApiResponse(responseCode = "404", description = "ATM Location not found",
-//                    content = @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = ErrorResponse.class))) })
+    @Operation(summary = "Get a ATM by its identification")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the ATM Location",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ATM.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid identification/url supplied",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "ATM Location not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping("/get-atm")
     public ResponseEntity<ClientResponseHelper<ATM>> getAtmLocation(@RequestBody AtmDTO atmDTO){
         try{
+
             return ResponseEntity.ok().body(atmService.getAtmById(atmDTO.getUrl(),atmDTO.getIdentification()));
         }catch (Exception e){
             throw new CustomNotFoundException(e.getMessage());
