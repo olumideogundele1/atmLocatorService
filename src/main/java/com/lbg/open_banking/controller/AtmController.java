@@ -53,7 +53,6 @@ public class AtmController {
             throw new CsutomBadException("Request is null");
         }
         try{
-
             return ResponseEntity.ok().body(atmService.getAtmById(atmDTO.getUrl(),atmDTO.getIdentification()));
         }catch (Exception e){
             throw new CustomNotFoundException(e.getMessage());
