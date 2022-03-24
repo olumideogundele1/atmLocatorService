@@ -28,6 +28,12 @@ public class CustomErrorAdvice  extends ResponseEntityExceptionHandler {
         return error(NOT_FOUND, e);
     }
 
+    @ExceptionHandler({CsutomBadException.class})
+    @ResponseStatus(BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleNPException(CustomNotFoundException e) {
+        return error(BAD_REQUEST, e);
+    }
+
     @ExceptionHandler({CustomInternalServerError.class})
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorResponse> handleInternalServerException(CustomInternalServerError e) {
