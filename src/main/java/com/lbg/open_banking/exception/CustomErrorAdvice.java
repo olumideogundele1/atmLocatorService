@@ -30,7 +30,7 @@ public class CustomErrorAdvice  extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({CsutomBadException.class})
     @ResponseStatus(BAD_REQUEST)
-    public ResponseEntity<ErrorResponse> handleNPException(CustomNotFoundException e) {
+    public ResponseEntity<ErrorResponse> handleNPException(CsutomBadException e) {
         return error(BAD_REQUEST, e);
     }
 
